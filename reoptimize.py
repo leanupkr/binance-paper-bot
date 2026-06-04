@@ -47,11 +47,19 @@ def main() -> None:
         log.error("데이터 수집 실패 — 재최적화 중단(현 config 유지)")
         return
 
+    # 안전: 전략은 현재 선택된 것으로 고정하고 그 파라미터만 튜닝(주간마다 전략이
+    #       뒤바뀌는 과최적화 방지). 현 전략 그리드가 없으면 변경하지 않음.
+    full_grid = opt.get("param_grid", {})
+    active_grid = {cfg.strategy: full_grid[cfg.strategy]} if cfg.strategy in full_grid else {}
+    if not active_grid:
+        log.warning("현 전략(%s) 그리드 없음 — 재최적화 생략(현 설정 유지)", cfg.strategy)
+        return
+
     sw = opt.get("score_weights", {})
     optimizer = GridSearchOptimizer(
         symbols=list(candles_map.keys()),
         candles_map=candles_map,
-        param_grids=opt.get("param_grid", {}),
+        param_grids=active_grid,
         # 안전: 레버리지는 현 default 로 고정(자동 상향 금지)
         leverage_grid=[cfg.leverage_default],
         split_ratio=float(opt.get("split_ratio", 0.7)),

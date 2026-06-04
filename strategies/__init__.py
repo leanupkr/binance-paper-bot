@@ -7,4 +7,5 @@
 from . import base  # noqa: F401
 from . import volatility_breakout  # noqa: F401
 from . import ma_crossover  # noqa: F401
+from . import ma_trend  # noqa: F401
 from . import rsi_mean_reversion  # noqa: F401
