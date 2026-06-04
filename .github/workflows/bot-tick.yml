@@ -8,12 +8,12 @@
 #   - cron 스케줄은 best-effort 입니다. 부하가 많을 때 수 분~수십 분 지연될 수 있습니다.
 #   - 페이퍼 트레이딩 전용. 실거래 주문 API 는 절대 호출하지 않습니다.
 
-name: Bot Tick (15min)
+name: Bot Tick (10min)
 
 on:
   schedule:
-    # 매 15분마다 실행 (UTC 기준). 실제 실행은 best-effort.
-    - cron: '*/15 * * * *'
+    # 매 10분마다 실행 (UTC 기준). 실제 실행은 best-effort.
+    - cron: '*/10 * * * *'
   workflow_dispatch:
     # 수동 트리거 (Actions 탭 > Run workflow)
 
