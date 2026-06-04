@@ -18,7 +18,8 @@ symbols:
 # ── 시세 수집 ─────────────────────────────────────────────────
 market_data:
   poll_interval_sec: 60        # 메인 루프 주기 (초)
-  candle_interval: "15m"       # 1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w
+  candle_interval: "1h"        # 1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w
+                               # always-in 휩쏘/수수료 누수 줄이려 15m→1h (하루 수 회 전환)
   candle_count: 200            # 지표 계산용 캔들 수집 개수
   request_interval_sec: 0.2    # 요청 간 간격 (레이트리밋 대응)
   max_consecutive_failures: 5  # 연속 실패 N회 시 경고/슬랙 알림
