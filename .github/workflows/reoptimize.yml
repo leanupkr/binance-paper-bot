@@ -1,0 +1,54 @@
+# reoptimize.yml — 주간 자동 재최적화 (무료)
+#
+#   - 매주 월요일 00:00 UTC(09:00 KST)에 최근 데이터로 그리드서치 재실행.
+#   - 경고 없는 best (전략/파라미터)로 config.yaml 갱신 후 자동 커밋.
+#   - 레버리지는 자동 상향하지 않음(reoptimize.py 안전장치). 변경 없으면 커밋 안 함.
+#   - 페이퍼 트레이딩 전용. 수익을 보장하지 않으며 과최적화 위험이 있다.
+
+name: Weekly Re-optimize
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'   # 매주 월요일 00:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write          # config.yaml 자동 커밋용
+
+concurrency:
+  group: reoptimize-singleton
+  cancel-in-progress: false
+
+jobs:
+  reoptimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 소스 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 3.12 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 재최적화 실행
+        run: python reoptimize.py
+
+      - name: 변경 시 config.yaml 커밋
+        run: |
+          if ! git diff --quiet config.yaml; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add config.yaml
+            git commit -m "auto: 주간 재최적화로 config.yaml 갱신 [skip ci]"
+            git push
+            echo "config.yaml 갱신 푸시 완료"
+          else
+            echo "변경 없음 — 커밋 생략"
+          fi
