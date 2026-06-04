@@ -1,0 +1,53 @@
+# bot-tick.yml — GitHub Actions 기반 단일 틱 실행 (무료 티어)
+#
+# ⚠️  주의사항:
+#   - 공개(public) 저장소는 GitHub Actions 가 무제한 무료라 15분 주기도 비용 없음.
+#     (비공개로 바꾸면 월 2000분 제한 → cron 을 '0 * * * *' 1시간 주기로 낮출 것)
+#   - GitHub 은 60일간 저장소에 활동이 없으면 스케줄을 자동 비활성화합니다.
+#     (Settings > Actions 에서 "Enable" 버튼으로 재활성화 가능)
+#   - cron 스케줄은 best-effort 입니다. 부하가 많을 때 수 분~수십 분 지연될 수 있습니다.
+#   - 페이퍼 트레이딩 전용. 실거래 주문 API 는 절대 호출하지 않습니다.
+
+name: Bot Tick (15min)
+
+on:
+  schedule:
+    # 매 15분마다 실행 (UTC 기준). 실제 실행은 best-effort.
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    # 수동 트리거 (Actions 탭 > Run workflow)
+
+# 동일 그룹의 중복 실행 방지 — 직렬화 (cancel-in-progress: false 로 기존 실행 완료 후 다음 실행)
+concurrency:
+  group: bot-tick-singleton
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10  # 단일 틱은 10분 내 완료를 기대
+
+    env:
+      # Supabase REST 백엔드 사용 (secrets 에 SUPABASE_URL / SUPABASE_SERVICE_KEY 등록 필요)
+      STORAGE_BACKEND: supabase
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      # 슬랙 알림 (선택 — secrets 에 없으면 빈 값으로 무시됨)
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+
+    steps:
+      - name: 소스 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 3.12 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 봇 단일 틱 실행
+        run: python tick.py
