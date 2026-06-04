@@ -1,0 +1,169 @@
+/* Pretendard (한글) — @import 는 @tailwind 앞에 위치해야 함 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink:      #16161a;
+  --ink-2:    #3a3a44;
+  --ink-3:    #7a7a88;
+  --paper:    #faf9f6;
+  --paper-2:  #f0efe9;
+  --border:   rgba(22, 22, 26, 0.12);
+  --accent:   #1e40af;
+  --accent-2: #2563eb;
+  --long:     #15803d;
+  --long-bg:  #dcfce7;
+  --short:    #dc2626;
+  --short-bg: #fee2e2;
+  --warn:     #b45309;
+  --warn-bg:  #fef3c7;
+  --radius:   6px;
+}
+
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Pretendard Variable", "Pretendard", -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: keep-all;
+  min-height: 100vh;
+}
+
+/* 숫자 전용 폰트 */
+.font-num {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 52px;
+  border-bottom: 1px solid var(--border);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* 지표 카드 */
+.metric-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+/* 패널 */
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.panel-header {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 테이블 */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  padding: 9px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: var(--ink);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--paper-2); }
+
+/* 뱃지 */
+.badge {
+  display: inline-block;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.02em;
+}
+.badge-long  { background: var(--long-bg);  color: var(--long); }
+.badge-short { background: var(--short-bg); color: var(--short); }
+.badge-liq   { background: var(--warn-bg);  color: var(--warn); }
+
+/* 성과 요약 그리드 */
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.report-item {
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.report-item:nth-child(odd) { border-right: 1px solid var(--border); }
+
+/* 범위 버튼 */
+.range-btn {
+  display: flex;
+  gap: 4px;
+}
+.range-btn button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.range-btn button.active,
+.range-btn button:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* 상태 점 */
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.status-dot.offline { background: var(--ink-3); }
+
+/* 색상 유틸 */
+.text-pos  { color: var(--long); }
+.text-neg  { color: var(--short); }
+.text-ink3 { color: var(--ink-3); }
+.text-ink2 { color: var(--ink-2); }
+.text-accent { color: var(--accent); }

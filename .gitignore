@@ -1,0 +1,49 @@
+# 환경변수 / 시크릿
+.env
+.env.local
+.env.*.local
+
+# SQLite 데이터베이스
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# 가상환경
+venv/
+.venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 리포트 출력물
+reports/
+*.html
+
+# macOS
+.DS_Store
+
+# Next.js 대시보드 (web/)
+web/node_modules/
+web/.next/
+.vercel
+
+# MCP / Claude 로컬 설정 (시크릿 가능)
+.mcp.json
+.claude/

@@ -1,0 +1,16 @@
+venv/
+.venv/
+web/node_modules/
+web/.next/
+.git/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+data/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+reports/
+.env
+.env.*
