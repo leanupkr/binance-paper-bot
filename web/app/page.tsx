@@ -494,7 +494,7 @@ function TradeTable({ trades }: { trades: TradeRow[] }) {
                     </td>
                     <td>
                       {t.action ?? "—"}
-                      {t.is_liquidation && (
+                      {Boolean(t.is_liquidation) && (
                         <span className="badge badge-liq" style={{ marginLeft: 4 }}>
                           청산
                         </span>
