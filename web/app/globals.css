@@ -167,3 +167,45 @@ tbody tr:hover td { background: var(--paper-2); }
 .text-ink3 { color: var(--ink-3); }
 .text-ink2 { color: var(--ink-2); }
 .text-accent { color: var(--accent); }
+
+/* ── 레이아웃 (반응형) ── */
+.header-title { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+.header-meta {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; color: var(--ink-3);
+  min-width: 0;
+}
+.header-meta > span { white-space: nowrap; }
+.dash-main {
+  max-width: 1400px; margin: 0 auto; padding: 24px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+.panel-row-responsive {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.metric-value { font-size: 22px; font-weight: 600; letter-spacing: -0.03em; }
+
+/* ── 모바일 (≤640px) ── */
+@media (max-width: 640px) {
+  html, body { font-size: 13.5px; }
+  .header { padding: 0 14px; height: 48px; }
+  .header-title { font-size: 13px; }
+  .header-meta { font-size: 10.5px; gap: 8px; }
+  .dash-main { padding: 13px; gap: 14px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
+  .panel-row-responsive { grid-template-columns: 1fr; gap: 14px; }
+  .metric-card { padding: 12px 13px; }
+  .metric-value { font-size: 18px; }
+  .panel-header { padding: 11px 14px; }
+  thead th { padding: 8px 10px; font-size: 10.5px; }
+  tbody td { padding: 8px 10px; font-size: 12px; }
+  .report-item { padding: 10px 13px; }
+  /* 터치 타깃 확대 (≥40px 영역) */
+  .range-btn { gap: 6px; }
+  .range-btn button { padding: 8px 12px; font-size: 12px; }
+}

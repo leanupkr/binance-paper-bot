@@ -193,10 +193,7 @@ function MetricCard({
       >
         {label}
       </div>
-      <div
-        className={`font-num ${cls}`}
-        style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.03em" }}
-      >
+      <div className={`font-num metric-value ${cls}`}>
         {value}
       </div>
       {sub && (
@@ -610,39 +607,19 @@ export default function DashboardPage() {
     <>
       {/* ── 헤더 ── */}
       <header className="header">
-        <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-0.02em" }}>
+        <div className="header-title">
           Paper Trading{" "}
           <span style={{ color: "var(--accent)" }}>Dashboard</span>
         </div>
-        <div
-          className="font-num"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            fontSize: 12,
-            color: "var(--ink-3)",
-          }}
-        >
-          <span
-            className={`status-dot${isOnline ? "" : " offline"}`}
-          />
+        <div className="header-meta font-num">
+          <span className={`status-dot${isOnline ? "" : " offline"}`} />
           <span>{mode ? mode.toUpperCase() : "—"}</span>
           <span>갱신 {lastUpdate || "—"}</span>
         </div>
       </header>
 
       {/* ── 본문 ── */}
-      <main
-        style={{
-          maxWidth: 1400,
-          margin: "0 auto",
-          padding: 24,
-          display: "flex",
-          flexDirection: "column",
-          gap: 20,
-        }}
-      >
+      <main className="dash-main">
         {/* 오류 배너 */}
         {error && (
           <div
@@ -661,13 +638,7 @@ export default function DashboardPage() {
         )}
 
         {/* ── KPI 카드 그리드 ── */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-            gap: 12,
-          }}
-        >
+        <div className="kpi-grid">
           <MetricCard
             label="평가자산"
             value={`${fmt.num(kpi.equity)} USDT`}
@@ -713,14 +684,7 @@ export default function DashboardPage() {
         />
 
         {/* ── 포지션 + 성과 2열 ── */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 20,
-          }}
-          className="panel-row-responsive"
-        >
+        <div className="panel-row-responsive">
           <PositionTable positions={positions} />
           <ReportPanel kpi={kpi} />
         </div>
