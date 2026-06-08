@@ -10,10 +10,10 @@ exchange: binance_futures      # 바이낸스 USDT-M 무기한 선물
 
 # ── 거래 대상 (USDT-M 무기한 심볼) ────────────────────────────
 symbols:
-  - BTCUSDT
-  - ETHUSDT
-  - SOLUSDT
-  - XRPUSDT
+- BTCUSDT
+- ETHUSDT
+- SOLUSDT
+- XRPUSDT
 
 # ── 시세 수집 ─────────────────────────────────────────────────
 market_data:
@@ -47,8 +47,8 @@ leverage:
 strategy: ma_trend
 strategy_params:
   ma_trend:
-    short: 5                   # 단기>=장기 → 롱 / 단기<장기 → 숏 (항상 포지션)
-    long: 15
+    short: 10
+    long: 50
   volatility_breakout:
     k: 0.5                     # 변동폭 계수 (상방 돌파=롱 / 하방 돌파=숏)
   ma_crossover:
