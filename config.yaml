@@ -48,7 +48,7 @@ strategy: ma_trend
 strategy_params:
   ma_trend:
     short: 10
-    long: 50
+    long: 30
   volatility_breakout:
     k: 0.5                     # 변동폭 계수 (상방 돌파=롱 / 하방 돌파=숏)
   ma_crossover:
